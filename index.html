@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Please Hold — AI-Powered Scam Call Wasting</title>
+  <meta name="description" content="Please Hold is an AI that answers spam calls and politely wastes the caller's time. Weaponized politeness for the modern age.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Warm, calming palette - "waiting room energy" */
+      --cream: #FAF8F5;
+      --cream-dark: #F0EDE8;
+      --sage: #7EB8A2;
+      --sage-dark: #5A9A82;
+      --sage-light: #B8DFD0;
+      --slate: #6B7B8C;
+      --slate-light: #9AABB8;
+      --charcoal: #2D3436;
+      --charcoal-light: #4A5568;
+      --coral: #E09F7D;
+      --coral-hover: #D08B66;
+      --peach: #F5D6C6;
+
+      /* Typography */
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 6rem;
+      --space-2xl: 10rem;
+
+      /* Transitions */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Selection styling */
+    ::selection {
+      background: var(--sage-light);
+      color: var(--charcoal);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 400;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: var(--space-md);
+    }
+
+    h3 {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      margin-bottom: var(--space-sm);
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--charcoal-light);
+      max-width: 600px;
+    }
+
+    /* ===== LAYOUT ===== */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    section {
+      padding: var(--space-xl) 0;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: var(--space-sm) 0;
+      background: rgba(250, 248, 245, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    nav.scrolled {
+      border-color: var(--cream-dark);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--sage);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse-slow 3s ease-in-out infinite;
+    }
+
+    .logo-icon::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--cream);
+      border-radius: 50%;
+    }
+
+    nav .cta-small {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    /* ===== BUTTONS ===== */
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: var(--coral);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--coral-hover);
+      transform: translateY(100%);
+      transition: transform 0.3s var(--ease-out);
+    }
+
+    .cta span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(224, 159, 125, 0.3);
+    }
+
+    .cta:hover::before {
+      transform: translateY(0);
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: var(--charcoal);
+      border: 2px solid var(--charcoal);
+    }
+
+    .cta-secondary::before {
+      background: var(--charcoal);
+    }
+
+    .cta-secondary:hover {
+      color: white;
+      box-shadow: 0 10px 30px rgba(45, 52, 54, 0.2);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: var(--space-2xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(circle at 30% 20%, var(--sage-light) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, var(--peach) 0%, transparent 40%);
+      opacity: 0.4;
+      animation: bg-drift 20s ease-in-out infinite;
+    }
+
+    @keyframes bg-drift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, -2%) rotate(1deg); }
+      66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(126, 184, 162, 0.15);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--sage-dark);
+      margin-bottom: var(--space-md);
+      animation: fade-in-up 0.8s var(--ease-out) 0.2s both;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--sage);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .hero h1 {
+      margin-bottom: var(--space-md);
+      animation: fade-in-up 0.8s var(--ease-out) 0.4s both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--sage-dark);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--slate);
+      max-width: 600px;
+      margin: 0 auto var(--space-lg);
+      animation: fade-in-up 0.8s var(--ease-out) 0.6s both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fade-in-up 0.8s var(--ease-out) 0.8s both;
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Floating hold indicators */
+    .hold-indicators {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hold-indicator {
+      position: absolute;
+      padding: 0.5rem 1rem;
+      background: white;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: var(--slate);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.8;
+    }
+
+    .hold-indicator:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .hold-indicator:nth-child(2) {
+      top: 60%;
+      right: 8%;
+      animation-delay: 2s;
+    }
+
+    .hold-indicator:nth-child(3) {
+      bottom: 25%;
+      left: 15%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-15px) rotate(2deg); }
+    }
+
+    /* Infinite spinner decoration */
+    .spinner-decor {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--sage-light);
+      border-top-color: var(--sage);
+      border-radius: 50%;
+      animation: spin 3s linear infinite;
+      opacity: 0.4;
+    }
+
+    .spinner-decor:nth-child(4) {
+      top: 15%;
+      right: 15%;
+    }
+
+    .spinner-decor:nth-child(5) {
+      bottom: 20%;
+      left: 8%;
+      width: 40px;
+      height: 40px;
+      animation-duration: 4s;
+      animation-direction: reverse;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-it-works {
+      background: white;
+      position: relative;
+    }
+
+    .how-it-works::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cream-dark), transparent);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--sage-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-header p {
+      margin: 0 auto;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      position: relative;
+    }
+
+    .step {
+      text-align: center;
+      padding: var(--space-md);
+      position: relative;
+    }
+
+    .step-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-md);
+      background: var(--cream);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .step-icon svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--sage-dark);
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 28px;
+      height: 28px;
+      background: var(--coral);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step h3 {
+      color: var(--charcoal);
+    }
+
+    .step p {
+      margin: 0 auto;
+      font-size: 1rem;
+    }
+
+    .steps-note {
+      text-align: center;
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--cream);
+      border-radius: 16px;
+      font-style: italic;
+      color: var(--slate);
+    }
+
+    /* ===== WHAT AI DOES ===== */
+    .what-ai-does {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .what-ai-does .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .what-ai-does .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .features-list {
+      list-style: none;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .features-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .feature-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--sage);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .feature-text strong {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-text span {
+      font-size: 0.95rem;
+      color: var(--slate);
+    }
+
+    .callout-box {
+      background: white;
+      padding: var(--space-md);
+      border-radius: 16px;
+      border: 1px solid var(--cream-dark);
+      margin-top: var(--space-md);
+    }
+
+    .callout-box p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      max-width: none;
+    }
+
+    /* AI Demo/Visualization */
+    .ai-demo {
+      position: relative;
+      padding: var(--space-lg);
+    }
+
+    .demo-card {
+      background: white;
+      border-radius: 24px;
+      padding: var(--space-md);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--cream-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    .demo-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--sage-dark);
+    }
+
+    .demo-status .status-dot {
+      width: 6px;
+      height: 6px;
+    }
+
+    .demo-time {
+      margin-left: auto;
+      font-size: 0.85rem;
+      color: var(--slate-light);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .demo-messages {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      min-height: 200px;
+    }
+
+    .demo-message {
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      max-width: 85%;
+      animation: message-in 0.5s var(--ease-out) both;
+    }
+
+    .demo-message.caller {
+      background: var(--cream);
+      color: var(--charcoal);
+      align-self: flex-start;
+    }
+
+    .demo-message.ai {
+      background: var(--sage-light);
+      color: var(--charcoal);
+      align-self: flex-end;
+    }
+
+    @keyframes message-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    }
+
+    .demo-progress {
+      margin-top: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .demo-progress-label {
+      font-size: 0.75rem;
+      color: var(--slate-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-progress-bar {
+      height: 4px;
+      background: var(--cream);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .demo-progress-fill {
+      height: 100%;
+      background: var(--sage);
+      border-radius: 2px;
+      animation: progress-loop 8s ease-in-out infinite;
+    }
+
+    @keyframes progress-loop {
+      0% { width: 15%; }
+      45% { width: 85%; }
+      50% { width: 85%; }
+      55% { width: 20%; }
+      100% { width: 15%; }
+    }
+
+    /* ===== WHAT IT NEVER DOES ===== */
+    .never-does {
+      background: var(--charcoal);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .never-does::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(126, 184, 162, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(224, 159, 125, 0.1) 0%, transparent 50%);
+    }
+
+    .never-does .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .never-does .section-header {
+      margin-bottom: var(--space-lg);
+    }
+
+    .never-does h2 {
+      color: white;
+    }
+
+    .never-does .section-header p {
+      color: var(--slate-light);
+    }
+
+    .never-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .never-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .never-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .never-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      background: rgba(126, 184, 162, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .never-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--sage-light);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .never-item h4 {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .never-item p {
+      font-size: 0.9rem;
+      color: var(--slate-light);
+      max-width: none;
+    }
+
+    /* ===== STATS SECTION ===== */
+    .stats {
+      background: white;
+      position: relative;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    @media (max-width: 900px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: var(--space-lg) var(--space-md);
+      background: var(--cream);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--sage);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1s var(--ease-out);
+    }
+
+    .stat-card.in-view::before {
+      transform: scaleX(1);
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 400;
+      color: var(--charcoal);
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: var(--slate);
+    }
+
+    .stat-card.joke {
+      background: var(--sage-light);
+    }
+
+    .stat-card.joke .stat-number {
+      color: var(--sage-dark);
+    }
+
+    /* ===== WHO IT'S FOR ===== */
+    .who-for {
+      position: relative;
+    }
+
+    .who-for .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .who-for .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .persona-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .persona {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--cream-dark);
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .persona:hover {
+      transform: translateX(8px);
+      border-color: var(--sage-light);
+    }
+
+    .persona-icon {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+      background: var(--cream);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .persona-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--sage-dark);
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .persona h4 {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .persona p {
+      font-size: 0.9rem;
+      color: var(--slate);
+      max-width: none;
+    }
+
+    /* Decorative element for who-for section */
+    .who-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+
+    .phone-mockup {
+      width: 240px;
+      height: 480px;
+      background: var(--charcoal);
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-header {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .phone-header .status-dot {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    .phone-header span {
+      font-size: 0.85rem;
+      color: var(--sage-dark);
+      font-weight: 500;
+    }
+
+    .phone-content {
+      flex: 1;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .phone-timer {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--charcoal);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 0.5rem;
+    }
+
+    .phone-label {
+      font-size: 0.8rem;
+      color: var(--slate);
+    }
+
+    .phone-wave {
+      margin-top: 1rem;
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .phone-wave span {
+      width: 4px;
+      height: 20px;
+      background: var(--sage);
+      border-radius: 2px;
+      animation: wave 1s ease-in-out infinite;
+    }
+
+    .phone-wave span:nth-child(2) { animation-delay: 0.1s; }
+    .phone-wave span:nth-child(3) { animation-delay: 0.2s; }
+    .phone-wave span:nth-child(4) { animation-delay: 0.3s; }
+    .phone-wave span:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(1); }
+    }
+
+    /* Floating elements around phone */
+    .floating-badge {
+      position: absolute;
+      padding: 0.5rem 1rem;
+      background: white;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--charcoal);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .floating-badge:nth-child(2) {
+      top: 10%;
+      right: 0;
+      animation-delay: 1s;
+    }
+
+    .floating-badge:nth-child(3) {
+      bottom: 20%;
+      left: 0;
+      animation-delay: 2.5s;
+    }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      background: linear-gradient(180deg, var(--cream) 0%, var(--sage-light) 100%);
+      text-align: center;
+      padding: var(--space-2xl) 0;
+      position: relative;
+    }
+
+    .final-cta h2 {
+      max-width: 700px;
+      margin: 0 auto var(--space-sm);
+    }
+
+    .final-cta p {
+      margin: 0 auto var(--space-lg);
+    }
+
+    .final-cta .cta {
+      font-size: 1.1rem;
+      padding: 1.25rem 2.5rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--charcoal);
+      color: white;
+      padding: var(--space-lg) 0;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .footer-brand .logo {
+      color: white;
+    }
+
+    .footer-tagline {
+      font-size: 0.9rem;
+      color: var(--slate-light);
+      max-width: 400px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .footer-links a {
+      color: var(--slate-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s var(--ease-out);
+    }
+
+    .fade-in.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-children > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s var(--ease-out);
+    }
+
+    .stagger-children.in-view > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+    .stagger-children.in-view > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+    .stagger-children.in-view > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+    .stagger-children.in-view > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+    .stagger-children.in-view > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+    .stagger-children.in-view > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+
+    /* ===== MOBILE ADJUSTMENTS ===== */
+    @media (max-width: 600px) {
+      section {
+        padding: var(--space-lg) 0;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: var(--space-2xl) 0 var(--space-lg);
+      }
+
+      .hold-indicators,
+      .spinner-decor {
+        display: none;
+      }
+
+      .who-visual {
+        min-height: 300px;
+      }
+
+      .phone-mockup {
+        width: 200px;
+        height: 400px;
+      }
+
+      .floating-badge {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">
+        <span class="logo-icon"></span>
+        Please Hold
+      </a>
+      <a href="#cta" class="cta cta-small">
+        <span>Get Started</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hold-indicators">
+        <div class="hold-indicator">Just a moment...</div>
+        <div class="hold-indicator">Still clarifying...</div>
+        <div class="hold-indicator">Please hold...</div>
+        <div class="spinner-decor"></div>
+        <div class="spinner-decor"></div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="status-dot"></span>
+        Currently wasting spam time
+      </div>
+      <h1>Please hold.<br><em>Forever.</em></h1>
+      <p class="hero-subtitle">Please Hold is an AI that answers spam calls and politely wastes the caller's time—without sharing personal information.</p>
+      <div class="hero-ctas">
+        <a href="#cta" class="cta">
+          <span>Put scammers on hold</span>
+        </a>
+        <a href="#how-it-works" class="cta cta-secondary">
+          <span>See how it works</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">How It Works</div>
+        <h2>Three steps to peaceful silence</h2>
+        <p>Setting up Please Hold takes about two minutes. Scammers, however, will be busy much longer.</p>
+      </div>
+
+      <div class="steps stagger-children">
+        <div class="step">
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            <span class="step-number">1</span>
+          </div>
+          <h3>Forward suspicious calls</h3>
+          <p>Route spam callers to your Please Hold number using call forwarding.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12h8M12 8v8"/>
+            </svg>
+            <span class="step-number">2</span>
+          </div>
+          <h3>AI engages politely</h3>
+          <p>Our AI answers and begins a very thorough, very slow conversation.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span class="step-number">3</span>
+          </div>
+          <h3>You stay uninterrupted</h3>
+          <p>Scammers stay busy while you enjoy a spam-free existence.</p>
+        </div>
+      </div>
+
+      <div class="steps-note fade-in">
+        "No yelling. No pranks. Just endless clarification."
+      </div>
+    </div>
+  </section>
+
+  <!-- What the AI Does -->
+  <section class="what-ai-does">
+    <div class="container">
+      <div>
+        <div class="section-label">What It Does</div>
+        <h2>Weaponized politeness</h2>
+        <p>Our AI has mastered the art of being helpful without actually helping. Think of it as customer service, but for scammers.</p>
+
+        <ul class="features-list stagger-children">
+          <li>
+            <span class="feature-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+            </span>
+            <div class="feature-text">
+              <strong>Politely asks for clarification</strong>
+              <span>"I'm sorry, could you spell that one more time?"</span>
+            </div>
+          </li>
+          <li>
+            <span class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </span>
+            <div class="feature-text">
+              <strong>Writes things down very slowly</strong>
+              <span>"Let me just get a pen... okay, go ahead."</span>
+            </div>
+          </li>
+          <li>
+            <span class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </span>
+            <div class="feature-text">
+              <strong>Mishears details just enough</strong>
+              <span>"Did you say 'Microsoft' or 'micro soft'?"</span>
+            </div>
+          </li>
+          <li>
+            <span class="feature-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </span>
+            <div class="feature-text">
+              <strong>Defers decisions indefinitely</strong>
+              <span>"I should probably check with my spouse first..."</span>
+            </div>
+          </li>
+          <li>
+            <span class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            </span>
+            <div class="feature-text">
+              <strong>Never agrees to anything</strong>
+              <span>"That sounds interesting, but I have some questions..."</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="callout-box">
+          <p>"It's not rude. It's just... thorough."</p>
+        </div>
+      </div>
+
+      <div class="ai-demo fade-in">
+        <div class="demo-card">
+          <div class="demo-header">
+            <div class="demo-status">
+              <span class="status-dot"></span>
+              Call in progress
+            </div>
+            <span class="demo-time" id="demo-timer">12:34</span>
+          </div>
+          <div class="demo-messages" id="demo-messages">
+            <div class="demo-message caller">Hi, I'm calling about your car's extended warranty...</div>
+            <div class="demo-message ai">Oh wonderful! I've been meaning to look into that. Which car are we talking about?</div>
+            <div class="demo-message caller">The one registered to this number.</div>
+            <div class="demo-message ai">Hmm, I have a few. Could you give me a moment to find my paperwork?</div>
+          </div>
+          <div class="demo-progress">
+            <div class="demo-progress-label">Caller patience remaining</div>
+            <div class="demo-progress-bar">
+              <div class="demo-progress-fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What It Never Does -->
+  <section class="never-does">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label" style="color: var(--sage-light);">Privacy First</div>
+        <h2>What it never does</h2>
+        <p>Please Hold is designed to protect you—not to cross lines.</p>
+      </div>
+
+      <div class="never-grid stagger-children">
+        <div class="never-item">
+          <div class="never-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div>
+            <h4>Never shares personal data</h4>
+            <p>No names, addresses, financial info, or real details ever leave your control.</p>
+          </div>
+        </div>
+
+        <div class="never-item">
+          <div class="never-icon">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+          </div>
+          <div>
+            <h4>Never threatens or insults</h4>
+            <p>All interactions stay polite. Confusion is the weapon, not confrontation.</p>
+          </div>
+        </div>
+
+        <div class="never-item">
+          <div class="never-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg>
+          </div>
+          <div>
+            <h4>Never impersonates authorities</h4>
+            <p>Won't pretend to be law enforcement, government, or anyone official.</p>
+          </div>
+        </div>
+
+        <div class="never-item">
+          <div class="never-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          </div>
+          <div>
+            <h4>Never makes commitments</h4>
+            <p>Won't agree to purchases, sign-ups, or anything that creates obligations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">The Numbers</div>
+        <h2>Politely wasting time at scale</h2>
+      </div>
+
+      <div class="stats-grid stagger-children">
+        <div class="stat-card">
+          <div class="stat-number" data-target="847293">0</div>
+          <div class="stat-label">Minutes of spam time wasted</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="12847">0</div>
+          <div class="stat-label">Calls politely derailed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="342">0</div>
+          <div class="stat-label">Scammers still explaining</div>
+        </div>
+        <div class="stat-card joke">
+          <div class="stat-number">0%</div>
+          <div class="stat-label">Average patience remaining</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who It's For -->
+  <section class="who-for">
+    <div class="container">
+      <div>
+        <div class="section-label">Who It's For</div>
+        <h2>Built for people who've had enough</h2>
+
+        <div class="persona-list stagger-children">
+          <div class="persona">
+            <div class="persona-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div>
+              <h4>Anyone tired of spam calls</h4>
+              <p>Reclaim your peace. Let someone else "handle" it.</p>
+            </div>
+          </div>
+
+          <div class="persona">
+            <div class="persona-icon">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div>
+              <h4>Builders, hackers, and tinkerers</h4>
+              <p>You appreciate an elegant solution to an annoying problem.</p>
+            </div>
+          </div>
+
+          <div class="persona">
+            <div class="persona-icon">
+              <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+            </div>
+            <div>
+              <h4>People who prefer quiet revenge</h4>
+              <p>No confrontation needed. Just cosmic justice, one wasted minute at a time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="who-visual">
+        <div class="floating-badge">🎵 Hold music playing...</div>
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <span class="status-dot"></span>
+              <span>On Hold</span>
+            </div>
+            <div class="phone-content">
+              <div class="phone-timer" id="phone-timer">04:32</div>
+              <div class="phone-label">and counting...</div>
+              <div class="phone-wave">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="floating-badge">📋 "Just one more question..."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta" id="cta">
+    <div class="container">
+      <h2 class="fade-in">You don't need to hang up.<br>We won't either.</h2>
+      <p class="fade-in">Start forwarding spam calls to Please Hold and reclaim your peace of mind.</p>
+      <a href="#" class="cta fade-in">
+        <span>Start wasting spam time</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-icon"></span>
+          Please Hold
+        </a>
+        <p class="footer-tagline">A defensive call-handling service. No scammers were harmed—just delayed.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+
+          // Trigger counter animation for stats
+          if (entry.target.classList.contains('stat-card')) {
+            animateCounter(entry.target.querySelector('.stat-number'));
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.fade-in, .stagger-children, .stat-card').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Counter animation
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      if (!target) return;
+
+      const duration = 2000;
+      const start = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - start;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Ease out cubic
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(easeOut * target);
+
+        el.textContent = current.toLocaleString();
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Demo timer simulation
+    const demoTimer = document.getElementById('demo-timer');
+    let minutes = 12;
+    let seconds = 34;
+
+    setInterval(() => {
+      seconds++;
+      if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+      }
+      demoTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+
+    // Phone timer simulation
+    const phoneTimer = document.getElementById('phone-timer');
+    let phoneMin = 4;
+    let phoneSec = 32;
+
+    setInterval(() => {
+      phoneSec++;
+      if (phoneSec >= 60) {
+        phoneSec = 0;
+        phoneMin++;
+      }
+      phoneTimer.textContent = `${phoneMin.toString().padStart(2, '0')}:${phoneSec.toString().padStart(2, '0')}`;
+    }, 1000);
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
