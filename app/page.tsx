@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [demoTime, setDemoTime] = useState({ minutes: 12, seconds: 34 });
@@ -109,9 +110,14 @@ export default function Home() {
             <span className="logo-icon"></span>
             Please Hold
           </a>
-          <a href="#cta" className="cta cta-small" onClick={(e) => handleSmoothScroll(e, '#cta')}>
-            <span>Get Started</span>
-          </a>
+          <div className="nav-links">
+            <Link href="/dashboard" className="nav-link">
+              Dashboard
+            </Link>
+            <a href="#cta" className="cta cta-small" onClick={(e) => handleSmoothScroll(e, '#cta')}>
+              <span>Get Started</span>
+            </a>
+          </div>
         </div>
       </nav>
 
